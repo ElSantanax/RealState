@@ -74,8 +74,7 @@
     }
 
     &__enlace {
+        border-radius: .5rem;        
         @include m.boton(v.$primario, v.$blanco);
-        display: block;
-        border-radius: .5rem;
     }
 }
