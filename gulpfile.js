@@ -1,7 +1,9 @@
 const { src, dest, watch, series } = require('gulp');
 
 // CSS y SASS
-const sass = require('gulp-sass')(require('sass'));
+const gulpSass = require('gulp-sass');
+const sass = require('sass');
+const sassCompiler = gulpSass(sass);
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
@@ -15,11 +17,10 @@ const avif = require('gulp-avif');
 function css(done) {
     src('src/scss/app.scss')
         .pipe(sourcemaps.init())
-        .pipe(sass())
+        .pipe(sassCompiler().on('error', sassCompiler.logError))
         .pipe(postcss([autoprefixer(), cssnano()]))
         .pipe(sourcemaps.write('.'))
         .pipe(dest('build/css'))
-
     done();
 }
 
